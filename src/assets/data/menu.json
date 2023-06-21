@@ -2,13 +2,37 @@
   "menu": [
     {
       "route": "dashboard",
-      "name": "dashboard",
+      "name": "Ranking",
       "type": "link",
-      "icon": "dashboard",
-      "badge": {
-        "color": "red-500",
-        "value": "5"
-      }
+      "icon": "dashboard"
+    },
+    {
+      "route": "otherLeagues",
+      "name": "Otras Ligas",
+      "type": "sub",
+      "icon": "history",
+      "children": [
+        {
+          "route": "maraton",
+          "name": "Maraton",
+          "type": "link"
+        },
+        {
+          "route": "mmaraton",
+          "name": "Media Maraton",
+          "type": "link"
+        },
+        {
+          "route": "15k",
+          "name": "15k",
+          "type": "link"
+        },
+        {
+          "route": "10k",
+          "name": "10k",
+          "type": "link"
+        }
+      ]
     },
     {
       "route": "design",

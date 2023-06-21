@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('./design/design.module').then(m => m.DesignModule),
       },
       {
+        path: 'otherLeagues',
+        loadChildren: () => import('./otherLeagues/other-leagues.module').then(m => m.OtherLeaguesModule),
+      },
+      {
         path: 'material',
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
       },
