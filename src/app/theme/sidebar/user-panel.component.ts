@@ -13,18 +13,18 @@ import { AuthService, User } from '@core/authentication';
         <button
           mat-icon-button
           routerLink="/profile/overview"
-          matTooltip="{{ 'profile' | translate }}"
+          matTooltip="{{ 'profile' }}"
         >
           <mat-icon class="icon-18">account_circle</mat-icon>
         </button>
         <button
           mat-icon-button
           routerLink="/profile/settings"
-          matTooltip="{{ 'edit_profile' | translate }}"
+          matTooltip="{{ 'edit_profile' }}"
         >
           <mat-icon class="icon-18">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="logout()" matTooltip="{{ 'logout' | translate }}">
+        <button mat-icon-button (click)="logout()" matTooltip="{{ 'logout' }}">
           <mat-icon class="icon-18">exit_to_app</mat-icon>
         </button>
       </div>
