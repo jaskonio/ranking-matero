@@ -6,7 +6,6 @@ import { AdminLayoutComponent } from '@theme/admin-layout/admin-layout.component
 import { AuthLayoutComponent } from '@theme/auth-layout/auth-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
-import { RegisterComponent } from './sessions/register/register.component';
 import { Error403Component } from './sessions/403.component';
 import { Error404Component } from './sessions/404.component';
 import { Error500Component } from './sessions/500.component';
@@ -63,8 +62,7 @@ const routes: Routes = [
     path: 'auth',
     component: AuthLayoutComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent }
     ],
   },
   { path: '**', redirectTo: 'dashboard' },

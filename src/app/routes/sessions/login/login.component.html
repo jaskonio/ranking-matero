@@ -29,16 +29,12 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-checkbox formControlName="rememberMe">{{'remember_me'}}
+        <mat-checkbox formControlName="rememberMe"> Recuerda me
         </mat-checkbox>
 
         <button class="w-full m-y-16" mat-raised-button color="primary"
                 [disabled]="!!loginForm.invalid" [loading]="isSubmitting"
                 (click)="login()">{{'login'}}</button>
-
-        <div>{{'have_no_account'}}?
-          <a routerLink="/auth/register">{{'create_one_account'}}</a>
-        </div>
       </form>
     </mat-card-content>
   </mat-card>
