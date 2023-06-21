@@ -36,7 +36,6 @@ export class StartupService {
   }
 
   private setMenu(menu: Menu[]) {
-    this.menuService.addNamespace(menu, 'menu');
     this.menuService.set(menu);
   }
 
