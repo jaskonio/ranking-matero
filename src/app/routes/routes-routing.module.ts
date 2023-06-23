@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('./otherLeagues/other-leagues.module').then(m => m.OtherLeaguesModule),
       },
       {
+        path: 'administration',
+        loadChildren: () => import('./administration/administration.module').then(m => m.AdministrationModule),
+      },
+      {
         path: 'material',
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
       },

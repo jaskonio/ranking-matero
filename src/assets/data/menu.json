@@ -35,6 +35,46 @@
       ]
     },
     {
+      "route": "administration",
+      "name": "Administración",
+      "type": "sub",
+      "icon": "build",
+      "children": [
+        {
+          "route": "",
+          "name": "Rankings",
+          "type": "sub",
+          "children": [
+            {
+              "route": "historyRanking",
+              "name": "Ranking Historico",
+              "type": "link"
+            },
+            {
+              "route": "valenciaCircuit",
+              "name": "Circuito Valencia",
+              "type": "link"
+            },
+            {
+              "route": "basquests",
+              "name": "Basquests",
+              "type": "link"
+            }
+          ]
+        },
+        {
+          "route": "races",
+          "name": "Carreras",
+          "type": "link"
+        },
+        {
+          "route": "persons",
+          "name": "Participantes",
+          "type": "link"
+        }
+      ]
+    },
+    {
       "route": "design",
       "name": "design",
       "type": "sub",
