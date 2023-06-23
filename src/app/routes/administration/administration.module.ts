@@ -7,6 +7,7 @@ import { BasquestsComponent } from './basquests/basquests.component';
 import { RacesComponent } from './races/races.component';
 import { PersonsComponent } from './persons/persons.component';
 import { SharedModule } from '@shared/shared.module';
+import { PersonEditComponent } from './persons/edit/person.component';
 
 
 const COMPONENTS: any[] = [
@@ -16,7 +17,7 @@ const COMPONENTS: any[] = [
   RacesComponent,
   PersonsComponent
 ];
-const COMPONENTS_DYNAMIC: any[] = [];
+const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent];
 
 
 @NgModule({

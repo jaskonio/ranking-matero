@@ -1,0 +1,30 @@
+<mat-dialog-content>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Form Horizontal</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="personForm1" class="form-field-full">
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="" formControlName="username" required>
+            <mat-error *ngIf="personForm1.get('username')?.invalid">
+              El Nombre es obligatorio
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Apelidos</mat-label>
+            <input matInput placeholder="" formControlName="last_name" required>
+            <mat-error *ngIf="personForm1.get('last_name')?.invalid">
+              El Apellido es obligatorio
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button class="m-t-8" (click)="close()">Close</button>
+          <button mat-raised-button color="primary" class="m-t-8" [disabled]="!personForm1.valid" (click)="submitPerson()">Guardar</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
