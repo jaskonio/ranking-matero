@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonEditComponent } from './edit/person.component';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs';
+import { Participant, PersonService } from '../person.service';
+import { MtxGridColumn } from '@ng-matero/extensions/grid';
 
 @Component({
   selector: 'app-persons',
@@ -10,17 +12,75 @@ import { filter } from 'rxjs';
   styleUrls: ['./persons.component.scss']
 })
 export class PersonsComponent implements OnInit, OnDestroy{
+  participants:Participant[] = [];
 
+  columns: MtxGridColumn[] = [
+    {
+      header: 'Nombre',
+      field: 'first_name',
+      sortable: true,
+      minWidth: 100,
+      width: '100px',
+    },
+    {
+      header: 'Apellido',
+      field: 'last_name',
+      sortable: true,
+      minWidth: 100,
+      width: '100px',
+    },
+    {
+      header: 'Foto',
+      field: 'photo',
+      type: 'image',
+      width: '80px',
+    },
+    {
+      header: 'operation',
+      field: 'operation',
+      minWidth: 160,
+      width: '160px',
+      pinned: 'right',
+      type: 'button',
+      buttons: [
+        {
+          type: 'icon',
+          icon: 'edit',
+          tooltip: 'edit',
+          click: record => this.editParticipant(record),
+        },
+        {
+          color: 'warn',
+          icon: 'delete',
+          text: 'delete',
+          tooltip: 'delete',
+          pop: {
+            title: '¿Quieres eliminar al participante?',
+            closeText: 'cerrar',
+            okText: 'eliminar',
+          },
+          click: record => this.removeParticipant(record),
+        },
+      ],
+    },
+  ];
 
-  constructor(public dialog: MatDialog) {
+  isLoading = true;
+
+  total = 0;
+
+  constructor(public dialog: MatDialog,
+    private _personService:PersonService,
+    private cdr: ChangeDetectorRef) {
+      this.getAllParticipants();
   }
 
   ngOnInit() {
+    this.getAllParticipants();
   }
 
   ngOnDestroy() {
   }
-
 
   addNewPerson() {
     const dialogRef = this.dialog.open(PersonEditComponent, {
@@ -28,12 +88,60 @@ export class PersonsComponent implements OnInit, OnDestroy{
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((person:any) => {
+    dialogRef.afterClosed().subscribe((person:Participant) => {
       console.log('afterAllClosed');
 
-      if(person != undefined) {
-        console.log(person);
+      if(person == undefined) {
+        return;
       }
+
+      this.addNewParticipant(person);
+    });
+  }
+
+  editParticipant(participant:Participant){
+    console.log(participant);
+  }
+
+  removeParticipant(participant:Participant){
+    console.log(participant);
+    if(participant.id == null || participant.id == undefined){
+      return;
+    }
+
+    this._personService.delete(participant.id!).subscribe(data=>{
+      console.log(data);
+      this.getAllParticipants();
+    });
+  }
+
+  getAllParticipants() {
+    this.isLoading = true;
+
+    this._personService.getAll().subscribe( data => {
+      console.log('Get All Participant');
+      console.log(data);
+      this.participants = data;
+      this.total = this.participants.length;
+      this.isLoading = false;
+      this.cdr.detectChanges();
+
+      this.participants = data;
+    },
+    () => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    },
+    () => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  addNewParticipant(participant:Participant){
+    this._personService.add(participant).subscribe(data => {
+      console.log(data);
+      this.getAllParticipants();
     });
   }
 }

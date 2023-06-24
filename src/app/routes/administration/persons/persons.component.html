@@ -13,3 +13,12 @@
     </mat-card>
   </div>
 </div>
+
+
+<mtx-grid [data]="participants"
+          [columns]="columns"
+          [length]="total"
+          [loading]="isLoading"
+          [pageOnFront]="false"
+          [pageSizeOptions]="[5,10,20]">
+</mtx-grid>

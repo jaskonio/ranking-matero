@@ -8,8 +8,8 @@
         <form [formGroup]="personForm1" class="form-field-full">
           <mat-form-field>
             <mat-label>Nombre</mat-label>
-            <input matInput placeholder="" formControlName="username" required>
-            <mat-error *ngIf="personForm1.get('username')?.invalid">
+            <input matInput placeholder="" formControlName="first_name" required>
+            <mat-error *ngIf="personForm1.get('first_name')?.invalid">
               El Nombre es obligatorio
             </mat-error>
           </mat-form-field>

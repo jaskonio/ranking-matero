@@ -8,6 +8,7 @@ import { RacesComponent } from './races/races.component';
 import { PersonsComponent } from './persons/persons.component';
 import { SharedModule } from '@shared/shared.module';
 import { PersonEditComponent } from './persons/edit/person.component';
+import { PersonService } from './person.service';
 
 
 const COMPONENTS: any[] = [
@@ -23,5 +24,6 @@ const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent];
 @NgModule({
   imports: [SharedModule, AdministrationRoutingModule],
   declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC],
+  providers: [PersonService]
 })
 export class AdministrationModule { }
