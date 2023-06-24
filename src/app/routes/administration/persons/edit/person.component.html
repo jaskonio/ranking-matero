@@ -1,7 +1,7 @@
 <mat-dialog-content>
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Form Horizontal</mat-card-title>
+        <mat-card-title>Datos Persona</mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
@@ -22,8 +22,33 @@
             </mat-error>
           </mat-form-field>
 
-          <button mat-raised-button class="m-t-8" (click)="close()">Close</button>
-          <button mat-raised-button color="primary" class="m-t-8" [disabled]="!personForm1.valid" (click)="submitPerson()">Guardar</button>
+            <input
+              type="text"
+              readonly
+              hidden
+              formControlName="photo"
+              />
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              #f_input
+              (change)="handleFileInputChange(f_input.files)"
+            />
+
+            <div class="row">
+              <div (click)="f_input.click()">
+                <button mat-raised-button  style="height: auto; padding: 10px">
+                  <img class="m-b-8 r-full" [src]="avatar_src" alt="" width="80" height="80px" style="vertical-align: middle;">
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <button mat-raised-button class="m-t-8" (click)="close()">Close</button>
+              <button mat-raised-button color="primary" class="m-t-8" [disabled]="!personForm1.valid" (click)="submitPerson()">Guardar</button>
+            </div>
+
         </form>
       </mat-card-content>
     </mat-card>
