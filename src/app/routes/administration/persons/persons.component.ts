@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs';
 import { Participant, PersonService } from '../person.service';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-persons',
@@ -68,9 +69,22 @@ export class PersonsComponent implements OnInit, OnDestroy{
   isLoading = true;
   total = 0;
 
+  multiSelectable = false;
+  rowSelectable = false;
+  hideRowSelectionCheckbox = true;
+  showToolbar = false;
+  columnHideable = true;
+  columnSortable = true;
+  columnPinnable = true;
+  rowHover = true;
+  rowStriped = true;
+  showPaginator = true;
+  columnResizable = false;
+
   constructor(public dialog: MatDialog,
     private _personService:PersonService,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef,
+    private _toast: ToastrService) {
       this.getAllParticipants();
   }
 
@@ -155,8 +169,10 @@ export class PersonsComponent implements OnInit, OnDestroy{
   }
 
   addNewParticipant(participant:Participant){
-    this._personService.add(participant).subscribe(data => {
+    this._personService.add(participant).subscribe((data:any) => {
       console.log(data);
+      this._toast.info('Se ha creado correctamente', 'Participante');
+
       this.getAllParticipants();
     });
   }
@@ -165,6 +181,7 @@ export class PersonsComponent implements OnInit, OnDestroy{
     this._personService.update(participant).subscribe(data=>{
       console.log('updateParticipant.end');
       console.log(data);
+      this._toast.info('Se ha actualizado correctamente', 'Participante');
 
       this.getAllParticipants();
     });
