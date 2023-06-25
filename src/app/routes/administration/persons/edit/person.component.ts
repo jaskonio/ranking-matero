@@ -72,7 +72,8 @@ export class PersonEditComponent implements OnInit {
     const data:Participant = {
         first_name: this.personForm1.value.first_name as string,
         last_name: this.personForm1.value.last_name as string,
-        photo: this.personForm1.value.photo as string
+        photo: this.personForm1.value.photo as string,
+        photo_url: ''
     };
 
     if(this.data != undefined) {

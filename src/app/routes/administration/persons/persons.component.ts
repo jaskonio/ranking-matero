@@ -32,7 +32,7 @@ export class PersonsComponent implements OnInit, OnDestroy{
     },
     {
       header: 'Foto',
-      field: 'photo',
+      field: 'photo_url',
       type: 'image',
       width: '80px',
     },
