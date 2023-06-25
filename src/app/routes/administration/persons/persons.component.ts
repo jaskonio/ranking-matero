@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonEditComponent } from './edit/person.component';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs';
+import { filter, tap } from 'rxjs';
 import { Participant, PersonService } from '../person.service';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
 
@@ -66,7 +66,6 @@ export class PersonsComponent implements OnInit, OnDestroy{
   ];
 
   isLoading = true;
-
   total = 0;
 
   constructor(public dialog: MatDialog,
@@ -85,11 +84,11 @@ export class PersonsComponent implements OnInit, OnDestroy{
   addNewPerson() {
     const dialogRef = this.dialog.open(PersonEditComponent, {
       autoFocus: false,
-      disableClose: true,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((person:Participant) => {
-      console.log('afterAllClosed');
+      console.log('addNewPerson.afterAllClosed');
 
       if(person == undefined) {
         return;
@@ -100,7 +99,24 @@ export class PersonsComponent implements OnInit, OnDestroy{
   }
 
   editParticipant(participant:Participant){
+    console.log('editParticipant');
     console.log(participant);
+
+    const dialogRef = this.dialog.open(PersonEditComponent, {
+      autoFocus: false,
+      disableClose: true,
+      data: participant
+    });
+
+    dialogRef.afterClosed().subscribe((person:Participant) => {
+      console.log('editParticipant.afterClosed');
+
+      if(person == undefined) {
+        return;
+      }
+
+      this.updateParticipant(person);
+    });
   }
 
   removeParticipant(participant:Participant){
@@ -141,6 +157,15 @@ export class PersonsComponent implements OnInit, OnDestroy{
   addNewParticipant(participant:Participant){
     this._personService.add(participant).subscribe(data => {
       console.log(data);
+      this.getAllParticipants();
+    });
+  }
+
+  updateParticipant(participant:Participant) {
+    this._personService.update(participant).subscribe(data=>{
+      console.log('updateParticipant.end');
+      console.log(data);
+
       this.getAllParticipants();
     });
   }

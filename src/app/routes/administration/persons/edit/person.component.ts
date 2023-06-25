@@ -33,12 +33,26 @@ export class PersonEditComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<PersonEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: Participant
   ) {
+    console.log('PersonEditComponent.constructor');
+    console.log(this.data);
+
+    if(this.data == null) {
+      return;
+    }
+
+    this.avatar_src = this.data.photo;
+    this.personForm1.get('first_name')?.setValue(this.data.first_name);
+    this.personForm1.get('last_name')?.setValue(this.data.last_name);
   }
 
   ngOnInit() {
-    this.http.get(this.avatar_url, { responseType: 'blob' })
+    console.log('PersonEditComponent.ngOnInit');
+    console.log(this.data);
+
+    if (this.data == undefined || this.data == null) {
+      this.http.get(this.avatar_url, { responseType: 'blob' })
       .subscribe(res => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -47,13 +61,26 @@ export class PersonEditComponent implements OnInit {
 
         reader.readAsDataURL(res);
       });
+      return;
+    }
   }
 
   submitPerson(){
     console.log('submitPerson');
     console.log(this.personForm1.value);
 
-    this.dialogRef.close(this.personForm1.value);
+    const data:Participant = {
+        first_name: this.personForm1.value.first_name as string,
+        last_name: this.personForm1.value.last_name as string,
+        photo: this.personForm1.value.photo as string
+    };
+
+    if(this.data != undefined) {
+      data.id = this.data.id;
+    }
+
+    console.log(data);
+    this.dialogRef.close(data);
   }
 
   close() {

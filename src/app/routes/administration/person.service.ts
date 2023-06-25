@@ -36,8 +36,21 @@ export class PersonService {
   add(participant:Participant) {
     return this.http.post(this.baseUrl, participant);
   }
+
   delete(id:string) {
     console.log('delete');
     return this.http.delete<Participant>(this.baseUrl + id);
   }
+
+  update(participant:Participant) {
+    const id = participant.id;
+    const body:any = {};
+
+    body.first_name = participant.first_name;
+    body.last_name = participant.last_name;
+    body.photo = participant.photo;
+
+    return this.http.put(this.baseUrl + id, body);
+  }
+
 }
