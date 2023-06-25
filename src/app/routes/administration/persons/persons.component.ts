@@ -156,8 +156,6 @@ export class PersonsComponent implements OnInit, OnDestroy{
       this.total = this.participants.length;
       this.isLoading = false;
       this.cdr.detectChanges();
-
-      this.participants = data;
     },
     () => {
       this.isLoading = false;

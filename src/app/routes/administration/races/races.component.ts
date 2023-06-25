@@ -1,10 +1,157 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Race, RaceService } from '../race.service';
+import { MtxGridColumn } from '@ng-matero/extensions/grid';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { TABLE_HOST_BINDINGS } from '@ng-matero/extensions/grid/column-resize/column-resize-directives/common';
+import { RaceEditComponent } from './edit/race.component';
 
 @Component({
   selector: 'app-races',
   templateUrl: './races.component.html',
   styleUrls: ['./races.component.scss']
 })
-export class RacesComponent {
+export class RacesComponent implements OnInit, OnDestroy {
+  races:Race[] = [];
 
+  columns: MtxGridColumn[] = [
+    {
+      header: 'Nombre',
+      field: 'name',
+      sortable: true,
+      minWidth: 100,
+      width: '100px',
+    },
+    {
+      header: 'Procesado',
+      field: 'processed',
+      sortable: true,
+      minWidth: 100,
+      width: '100px',
+    },
+    {
+      header: 'operation',
+      field: 'operation',
+      minWidth: 160,
+      width: '160px',
+      pinned: 'right',
+      type: 'button',
+      buttons: [
+        {
+          type: 'icon',
+          icon: 'edit',
+          tooltip: 'edit',
+          click: record => this.editRace(record),
+        },
+        {
+          color: 'warn',
+          icon: 'delete',
+          text: 'delete',
+          tooltip: 'delete',
+          pop: {
+            title: '¿Quieres eliminar al participante?',
+            closeText: 'cerrar',
+            okText: 'eliminar',
+          },
+          click: record => this.removeRace(record),
+        },
+      ],
+    },
+  ];
+
+  isLoading = true;
+  total = 0;
+
+  multiSelectable = false;
+  rowSelectable = false;
+  hideRowSelectionCheckbox = true;
+  showToolbar = false;
+  columnHideable = true;
+  columnSortable = true;
+  columnPinnable = true;
+  rowHover = true;
+  rowStriped = true;
+  showPaginator = true;
+  columnResizable = false;
+
+  constructor(public dialog: MatDialog,
+    private _raceService:RaceService,
+    private cdr: ChangeDetectorRef,
+    private _toast: ToastrService) {
+  }
+
+  ngOnInit() {
+    this.getAllRace();
+  }
+
+  ngOnDestroy() {
+  }
+
+  addNewRace() {
+    this.openAddNewRaceModal();
+  }
+
+  editRace(race:Race) {
+    this.openEditRaceMode(race);
+  }
+
+  removeRace(race:Race) {
+    console.log('removeRace');
+  }
+
+  getAllRace() {
+    this.isLoading = true;
+
+    this._raceService.getAll().subscribe( data => {
+      console.log('Get All Races');
+      console.log(data);
+
+      this.races = data;
+      this.total = this.races.length;
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    },
+    () => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    },
+    () => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  openAddNewRaceModal(){
+    const dialogRef = this.dialog.open(RaceEditComponent, {
+      autoFocus: false,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((race:Race) => {
+      console.log('openAddNewRaceModal.afterAllClosed');
+
+      if(race == undefined) {
+        return;
+      }
+    });
+  }
+
+  openEditRaceMode(race: Race) {
+    console.log('openEditRaceMode');
+    console.log(race);
+
+    const dialogRef = this.dialog.open(RaceEditComponent, {
+      autoFocus: false,
+      disableClose: true,
+      data: race
+    });
+
+    dialogRef.afterClosed().subscribe((race:Race) => {
+      console.log('openEditRaceMode.afterClosed');
+
+      if(race == undefined) {
+        return;
+      }
+    });
+  }
 }
