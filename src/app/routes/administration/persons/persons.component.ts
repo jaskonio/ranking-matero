@@ -141,6 +141,7 @@ export class PersonsComponent implements OnInit, OnDestroy{
 
     this._personService.delete(participant.id!).subscribe(data=>{
       console.log(data);
+      this._toast.info('Se ha eliminado correctamente', 'Participante');
       this.getAllParticipants();
     });
   }
