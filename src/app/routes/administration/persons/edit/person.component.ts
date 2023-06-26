@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Participant } from '../../person.service';
+import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-person-edit',
@@ -32,8 +33,9 @@ export class PersonEditComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
+    private _imageCompressService:NgxImageCompressService,
     public dialogRef: MatDialogRef<PersonEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Participant
+    @Inject(MAT_DIALOG_DATA) public data: Participant,
   ) {
     console.log('PersonEditComponent.constructor');
     console.log(this.data);
@@ -88,27 +90,17 @@ export class PersonEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  handleFileInputChange(list_files: FileList | null) {
-    if (list_files == null) {
-      console.log('No se ha seleccionado ninguna imagen');
-      return;
-    }
+  handleFileInputChange() {
+    return this._imageCompressService.uploadFile()
+    .then(({ image, orientation, fileName }: UploadResponse) => {
 
-    this.file_avatar = list_files[0];
-
-    this.showPreview();
-  }
-
-  showPreview() {
-    if(this.file_avatar == null){
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.avatar_src = reader.result as string;
-    };
-
-    reader.readAsDataURL(this.file_avatar);
+      this._imageCompressService
+        .compressFile(image, orientation, 50, 50)
+        .then((result: DataUrl) => {
+          this.avatar_src = result;
+          console.log(`Compressed: ${result.substring(0, 50)}... (${result.length} characters)`);
+          console.log('Size in kilobyte is now:', this._imageCompressService.byteCount(result)/1024);
+        });
+    });
   }
 }

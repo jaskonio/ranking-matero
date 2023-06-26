@@ -22,22 +22,8 @@
             </mat-error>
           </mat-form-field>
 
-            <input
-              type="text"
-              readonly
-              hidden
-              formControlName="photo"
-              />
-            <input
-              type="file"
-              accept="image/*"
-              hidden
-              #f_input
-              (change)="handleFileInputChange(f_input.files)"
-            />
-
             <div class="row">
-              <div (click)="f_input.click()">
+              <div (click)="handleFileInputChange()">
                 <button mat-raised-button  style="height: auto; padding: 10px">
                   <img class="m-b-8 r-full" [src]="avatar_src" alt="" width="80" height="80px" style="vertical-align: middle;">
                 </button>
