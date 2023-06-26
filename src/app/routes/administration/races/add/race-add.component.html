@@ -25,31 +25,6 @@
         <mat-checkbox formControlName="processed">Processar</mat-checkbox>
 
         <div class="row">
-          <mtx-grid [data]="ranking"
-            [columns]="columns"
-            [length]="total"
-            [loading]="isLoading"
-            [pageOnFront]="true"
-            [columnResizable]="columnResizable"
-            [multiSelectable]="multiSelectable"
-            [rowSelectable]="rowSelectable"
-            [hideRowSelectionCheckbox]="hideRowSelectionCheckbox"
-            [rowHover]="rowHover"
-            [rowStriped]="rowStriped"
-            [showToolbar]="showToolbar"
-            [toolbarTitle]="'Data Grid Toolbar'"
-            [columnHideable]="columnHideable"
-            [columnSortable]="columnSortable"
-            [columnPinnable]="columnPinnable"
-            [pageOnFront]="showPaginator"
-            [showPaginator]="showPaginator"
-            [pageIndex]="0"
-            [pageSize]="5"
-            [pageSizeOptions]="[5,20,50]">
-          </mtx-grid>
-        </div>
-
-        <div class="row">
           <button mat-raised-button class="m-t-8" (click)="closeDialog()">Close</button>
           <button mat-raised-button color="primary" class="m-t-8" [disabled]="!raceForm.valid" (click)="submit()">Guardar</button>
         </div>
@@ -57,6 +32,3 @@
     </mat-card-content>
   </mat-card>
 </mat-dialog-content>
-
-
-

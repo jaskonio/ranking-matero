@@ -32,9 +32,9 @@ export interface Race {
   name: string;
   url: string;
   processed: boolean;
-  sorted: boolean;
-  ranking: Runner[];
-  proceesEnabled: boolean;
+  sorted?: boolean;
+  ranking?: Runner[];
+  proceesEnabled?: boolean;
 }
 
 export interface RaceResponse {

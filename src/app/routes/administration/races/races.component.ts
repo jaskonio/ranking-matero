@@ -3,8 +3,8 @@ import { Race, RaceService } from '../race.service';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { TABLE_HOST_BINDINGS } from '@ng-matero/extensions/grid/column-resize/column-resize-directives/common';
 import { RaceEditComponent } from './edit/race.component';
+import { RaceAddComponent } from './add/race-add.component';
 
 @Component({
   selector: 'app-races',
@@ -59,7 +59,7 @@ export class RacesComponent implements OnInit, OnDestroy {
     },
   ];
 
-  isLoading = true;
+  isLoading = false;
   total = 0;
 
   multiSelectable = false;
@@ -122,13 +122,14 @@ export class RacesComponent implements OnInit, OnDestroy {
   }
 
   openAddNewRaceModal(){
-    const dialogRef = this.dialog.open(RaceEditComponent, {
+    const dialogRef = this.dialog.open(RaceAddComponent, {
       autoFocus: false,
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((race:Race) => {
       console.log('openAddNewRaceModal.afterAllClosed');
+      console.log(race);
 
       if(race == undefined) {
         return;
@@ -143,7 +144,9 @@ export class RacesComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(RaceEditComponent, {
       autoFocus: false,
       disableClose: true,
-      data: race
+      data: race,
+      width: '100%',
+      panelClass: 'dialog-responsive'
     });
 
     dialogRef.afterClosed().subscribe((race:Race) => {
