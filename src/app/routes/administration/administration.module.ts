@@ -12,6 +12,7 @@ import { PersonService } from './person.service';
 import { RaceEditComponent } from './races/edit/race.component';
 import { RaceService } from './race.service';
 import { RaceAddComponent } from './races/add/race-add.component';
+import { RunnerEditComponent } from './runner/edit/runner-edit.component';
 
 
 const COMPONENTS: any[] = [
@@ -21,7 +22,7 @@ const COMPONENTS: any[] = [
   RacesComponent,
   PersonsComponent
 ];
-const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent, RaceEditComponent, RaceAddComponent];
+const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent, RaceEditComponent, RaceAddComponent, RunnerEditComponent];
 
 
 @NgModule({

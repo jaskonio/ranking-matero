@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 import { Participant } from '../../person.service';
 import { Race, Runner } from '../../race.service';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
+import { RunnerEditComponent } from '../../runner/edit/runner-edit.component';
 
 @Component({
   selector: 'app-race-edit',
@@ -128,7 +129,8 @@ export class RaceEditComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<RaceEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Race
+    @Inject(MAT_DIALOG_DATA) public data: Race,
+    public dialog: MatDialog,
   ) {
     console.log('RaceEditComponent.constructor');
     console.log(this.data);
@@ -146,6 +148,7 @@ export class RaceEditComponent implements OnInit {
   closeDialog(){
     this.dialogRef.close();
   }
+
   submit(){
     console.log('RaceEditComponent.submit');
     console.log(this.raceForm.value);
@@ -162,7 +165,18 @@ export class RaceEditComponent implements OnInit {
   editDialogRunner(runner: Runner): void {
     console.log('RaceEditComponent.editDialogRunner');
     console.log(runner);
+
+    const dialogRef = this.dialog.open(RunnerEditComponent, {
+      autoFocus: false,
+      disableClose: true,
+      data: runner
+    });
+
+    dialogRef.afterClosed().subscribe((race:Race) => {
+      console.log('RaceEditComponent.editDialogRunnerafterClosed');
+    });
   }
+
   removeRunner(runner: Runner): void {
     console.log('RaceEditComponent.removeRunner');
     console.log(runner);
