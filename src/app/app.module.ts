@@ -14,6 +14,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { BASE_URL, appInitializerProviders, httpInterceptorProviders } from '@core';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { BASE_URL, appInitializerProviders, httpInterceptorProviders } from '@co
     AppComponent
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
 
@@ -38,10 +39,13 @@ import { BASE_URL, appInitializerProviders, httpInterceptorProviders } from '@co
     }),
   ],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: BASE_URL, useValue: environment.baseUrl },
     httpInterceptorProviders,
-    appInitializerProviders,
+    appInitializerProviders
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
