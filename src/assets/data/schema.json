@@ -1,0 +1,28 @@
+{
+  "runner": {
+    "finished": {
+      "key": "finished",
+      "display_name": "Ha terminado",
+      "form": {
+        "type": "checkbox",
+        "required": true
+      },
+      "table": {
+        "sortable": true
+      }
+    },
+    "table": {
+      "multiSelectable": false,
+      "rowSelectable": false,
+      "hideRowSelectionCheckbox": true,
+      "showToolbar": false,
+      "columnHideable": true,
+      "columnSortable": true,
+      "columnPinnable": true,
+      "rowHover": true,
+      "rowStriped": true,
+      "showPaginator": true,
+      "columnResizable": false
+    }
+  }
+}
