@@ -1,23 +1,148 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Participant } from '../../person.service';
-import { Race, Runner } from '../../race.service';
-import { MtxGridColumn } from '@ng-matero/extensions/grid';
+import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Runner } from '../../race.service';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-runner-edit',
   templateUrl: './runner-edit.component.html'
 })
 export class RunnerEditComponent implements OnInit {
-  runnerForm = this.fb.group({
-    name: [this.data.name, [Validators.required]],
-  });
+  form = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {};
+  fields: FormlyFieldConfig[] = [
+    {
+      key: 'finished',
+      type: 'checkbox',
+      props: {
+        label: 'Ha Terminado',
+        required: true
+      },
+    },
+    {
+      key: 'officialTime',
+      type: 'input',
+      props: {
+        label: 'Tiempo oficial',
+        required: true
+      }
+    },
+    {
+      key: 'officialPos',
+      type: 'input',
+      props: {
+        label: 'Posicion oficial',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'officialAverageTime',
+      type: 'input',
+      props: {
+        label: 'Ritmo Oficial',
+        required: true
+      }
+    },
+    {
+      key: 'officialCatPos',
+      type: 'input',
+      props: {
+        label: 'Pos. Catergoria oficial',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'officialGenPos',
+      type: 'input',
+      props: {
+        label: 'Pos. genero oficial',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'realTime',
+      type: 'input',
+      props: {
+        label: 'Tiempo real',
+        required: true
+      }
+    },
+    {
+      key: 'realPos',
+      type: 'input',
+      props: {
+        label: 'Posicion real',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'realAverageTime',
+      type: 'input',
+      props: {
+        label: 'Ritmo tiempo real',
+        required: true
+      }
+    },
+    {
+      key: 'realCatPos',
+      type: 'input',
+      props: {
+        label: 'Pos. categoria real',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'realGenPos',
+      type: 'input',
+      props: {
+        label: 'Pos genero real',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'name',
+      type: 'input',
+      props: {
+        label: 'Nombre',
+        required: true
+      }
+    },
+    {
+      key: 'dorsal',
+      type: 'input',
+      props: {
+        label: 'Dorsal',
+        type: 'number',
+        required: true
+      }
+    },
+    {
+      key: 'gender',
+      type: 'input',
+      props: {
+        label: 'Genero',
+        required: true
+      }
+    },
+    {
+      key: 'category',
+      type: 'input',
+      props: {
+        label: 'Caterogia',
+        required: true
+      }
+    }
+  ];
 
   constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
     public dialogRef: MatDialogRef<RunnerEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Runner
   ) {
@@ -28,18 +153,18 @@ export class RunnerEditComponent implements OnInit {
   ngOnInit() {
     console.log('RunnerEditComponent.ngOnInit');
     console.log(this.data);
+    this.model = this.data;
+
   }
 
   closeDialog(){
     this.dialogRef.close();
   }
 
-  submit(){
-    console.log('RunnerEditComponent.submit');
-  }
-
-  editDialogRunner(runner: Runner): void {
-    console.log('RunnerEditComponent.editDialogRunner');
-    console.log(runner);
+  submit() {
+    if (this.form.valid) {
+      console.log(this.form.value);
+      this.dialogRef.close(this.form.value);
+    }
   }
 }
