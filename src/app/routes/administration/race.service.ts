@@ -73,5 +73,4 @@ export class RaceService {
 
     return this.http.put(this.raceUrl + id, race);
   }
-
 }

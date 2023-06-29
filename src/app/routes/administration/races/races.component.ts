@@ -155,6 +155,11 @@ export class RacesComponent implements OnInit, OnDestroy {
       if(race == undefined) {
         return;
       }
+
+      this._raceService.update(race).subscribe(data =>{
+        console.log(data);
+        this._toast.info('La carrera se ha actualizado correctamente');
+      },);
     });
   }
 }

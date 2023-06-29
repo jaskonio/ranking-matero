@@ -163,8 +163,7 @@ export class RunnerEditComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      console.log(this.form.value);
-      this.dialogRef.close(this.form.value);
+      this.dialogRef.close(this.model);
     }
   }
 }
