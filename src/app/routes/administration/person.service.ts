@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { from, map } from 'rxjs';
 
-
 export interface Participant {
   id?: string;
   first_name: string;
@@ -16,7 +15,6 @@ export interface ParticipantResponse {
   meta: object;
   message: string;
 }
-
 
 @Injectable()
 export class PersonService {

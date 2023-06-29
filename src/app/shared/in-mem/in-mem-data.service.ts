@@ -123,26 +123,24 @@ export class InMemDataService implements InMemoryDbService {
     }
 
     if (is(reqInfo, 'me/menu')) {
-      return ajax('assets/data/menu.json?_t=' + Date.now()).pipe(
-        map((response: any) => {
-          return { headers, url, status: STATUS.OK, body: { menu: response.response.menu } };
-        }),
-        switchMap(response => reqInfo.utils.createResponse$(() => response))
-      );
+      return this.menu(reqInfo);
     }
 
     if (is(reqInfo, 'me')) {
-      const user = jwt.getUser(reqInfo.req as HttpRequest<any>);
-      const result = user
-        ? { status: STATUS.OK, body: user }
-        : { status: STATUS.UNAUTHORIZED, body: {} };
-      const response = Object.assign({ headers, url }, result);
+      return this.fillUserResponse(reqInfo);
+    }
 
-      return reqInfo.utils.createResponse$(() => response);
+    if (is(reqInfo, 'schema/runner')) {
+      return this.schemaRunner(reqInfo);
+    }
+
+    if (is(reqInfo, 'schema/race')) {
+      return this.schemaRace(reqInfo);
     }
 
     return;
   }
+
 
   post(reqInfo: RequestInfo) {
     if (is(reqInfo, 'auth/login')) {
@@ -203,6 +201,48 @@ export class InMemDataService implements InMemoryDbService {
   private logout(reqInfo: RequestInfo) {
     const { headers, url } = reqInfo;
     const response = { headers, url, status: STATUS.OK, body: {} };
+
+    return reqInfo.utils.createResponse$(() => response);
+  }
+
+  private menu(reqInfo: RequestInfo) {
+    const { headers, url } = reqInfo;
+
+    return ajax('assets/data/menu.json?_t=' + Date.now()).pipe(
+      map((response: any) => {
+        return { headers, url, status: STATUS.OK, body: { menu: response.response.menu } };
+      }),
+      switchMap(response => reqInfo.utils.createResponse$(() => response))
+    );
+  }
+
+  private schemaRunner(reqInfo: RequestInfo) {
+    return this.schema(reqInfo, 'runner');
+  }
+
+  private schemaRace(reqInfo: RequestInfo) {
+    return this.schema(reqInfo, 'race');
+  }
+
+  private schema(reqInfo: RequestInfo, schema_key:string) {
+    const { headers, url } = reqInfo;
+
+    return ajax('assets/data/schema.json?_t=' + Date.now()).pipe(
+      map((response: any) => {
+        return { headers, url, status: STATUS.OK, body: { schema: response.response[schema_key] } };
+      }),
+      switchMap(response => reqInfo.utils.createResponse$(() => response))
+    );
+  }
+
+  private fillUserResponse(reqInfo: RequestInfo){
+    const { headers, url } = reqInfo;
+
+    const user = jwt.getUser(reqInfo.req as HttpRequest<any>);
+    const result = user
+      ? { status: STATUS.OK, body: user }
+      : { status: STATUS.UNAUTHORIZED, body: {} };
+    const response = Object.assign({ headers, url }, result);
 
     return reqInfo.utils.createResponse$(() => response);
   }
