@@ -13,6 +13,9 @@ import { RaceEditComponent } from './races/edit/race.component';
 import { RaceService } from './race.service';
 import { RaceAddComponent } from './races/add/race-add.component';
 import { RunnerEditComponent } from './runner/edit/runner-edit.component';
+import { LeagueService } from './league.service';
+import { ValenciaCircuitAddComponent } from './valencia-circuit/add/valencia-circuit-add.component';
+import { ValenciaCircuitEditComponent } from './valencia-circuit/edit/valencia-circuit-edit.component';
 
 
 const COMPONENTS: any[] = [
@@ -22,12 +25,13 @@ const COMPONENTS: any[] = [
   RacesComponent,
   PersonsComponent
 ];
-const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent, RaceEditComponent, RaceAddComponent, RunnerEditComponent];
-
+const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent, RaceEditComponent,
+  RaceAddComponent, RunnerEditComponent,
+  ValenciaCircuitAddComponent, ValenciaCircuitEditComponent];
 
 @NgModule({
   imports: [SharedModule, AdministrationRoutingModule],
   declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC],
-  providers: [PersonService, RaceService]
+  providers: [PersonService, RaceService, LeagueService]
 })
 export class AdministrationModule { }

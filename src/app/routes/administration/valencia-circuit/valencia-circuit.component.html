@@ -1,3 +1,39 @@
-<breadcrumb></breadcrumb>
+<page-header></page-header>
 
-<p>valencia-circuit works!</p>
+<div class="row">
+  <div class="col-sm-6">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Acciones</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <button mat-raised-button color="primary" (click)="addNewLeague()">Añadir Nueva Liga</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<mtx-grid [data]="leagues"
+          [columns]="columns"
+          [length]="total"
+          [loading]="isLoading"
+          [pageOnFront]="true"
+          [columnResizable]="columnResizable"
+          [multiSelectable]="multiSelectable"
+          [rowSelectable]="rowSelectable"
+          [hideRowSelectionCheckbox]="hideRowSelectionCheckbox"
+          [rowHover]="rowHover"
+          [rowStriped]="rowStriped"
+          [showToolbar]="showToolbar"
+          [toolbarTitle]="'Data Grid Toolbar'"
+          [columnHideable]="columnHideable"
+          [columnSortable]="columnSortable"
+          [columnPinnable]="columnPinnable"
+          [pageOnFront]="showPaginator"
+          [showPaginator]="showPaginator"
+          [pageIndex]="0"
+          [pageSize]="10"
+          [pageSizeOptions]="[10,20,50]">
+</mtx-grid>
+
