@@ -16,6 +16,7 @@ import { RunnerEditComponent } from './runner/edit/runner-edit.component';
 import { LeagueService } from './league.service';
 import { ValenciaCircuitAddComponent } from './valencia-circuit/add/valencia-circuit-add.component';
 import { ValenciaCircuitEditComponent } from './valencia-circuit/edit/valencia-circuit-edit.component';
+import { ValenciaCircuitEditRunnerComponent } from './valencia-circuit/editRunner/ValenciaCircuitEditRunnerComponent';
 
 
 const COMPONENTS: any[] = [
@@ -27,7 +28,8 @@ const COMPONENTS: any[] = [
 ];
 const COMPONENTS_DYNAMIC: any[] = [PersonEditComponent, RaceEditComponent,
   RaceAddComponent, RunnerEditComponent,
-  ValenciaCircuitAddComponent, ValenciaCircuitEditComponent];
+  ValenciaCircuitAddComponent, ValenciaCircuitEditComponent,
+  ValenciaCircuitEditRunnerComponent];
 
 @NgModule({
   imports: [SharedModule, AdministrationRoutingModule],

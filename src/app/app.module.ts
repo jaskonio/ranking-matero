@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -15,6 +15,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { BASE_URL, appInitializerProviders, httpInterceptorProviders } from '@core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -37,6 +39,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       dataEncapsulation: false,
       passThruUnknownUrl: true,
     }),
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG
+    })
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -46,6 +51,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   ],
   bootstrap: [
     AppComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

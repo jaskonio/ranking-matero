@@ -6,7 +6,6 @@
       <mat-card-header>
         <mat-card-title>Acciones</mat-card-title>
       </mat-card-header>
-
       <mat-card-content>
         <button mat-raised-button color="primary" (click)="addNewLeague()">Añadir Nueva Liga</button>
       </mat-card-content>
@@ -36,4 +35,7 @@
           [pageSize]="10"
           [pageSizeOptions]="[10,20,50]">
 </mtx-grid>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "line-scale" [fullScreen] = "true"></ngx-spinner>
+
 

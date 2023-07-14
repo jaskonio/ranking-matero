@@ -5,14 +5,56 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <formly-form [model]="model" [fields]="fields" [form]="form"></formly-form>
-        <button mat-raised-button class="m-t-8" (click)="closeDialog()">Close</button>
-        <button mat-raised-button color="primary" [disabled]="!form.valid">Submit</button>
+
+      <form [formGroup]="form">
+        <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+
+        <div class="row">
+
+          <div class="col">
+            <pre>Orden de Carreras</pre>
+            <div
+            cdkDropList
+            [cdkDropListData]="selectedRace"
+            class="example-list"
+            (cdkDropListDropped)="onDrop($event)">
+              <div class="example-box" *ngFor="let race of selectedRace" cdkDrag>{{race.name}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <pre>Lista de corredores</pre>
+
+            <mtx-grid [data]="selectedRunners"
+                      [columns]="columns"
+                      [length]="total"
+                      [loading]="isLoading"
+                      [pageOnFront]="true"
+                      [columnResizable]="columnResizable"
+                      [multiSelectable]="multiSelectable"
+                      [rowSelectable]="rowSelectable"
+                      [hideRowSelectionCheckbox]="hideRowSelectionCheckbox"
+                      [rowHover]="rowHover"
+                      [rowStriped]="rowStriped"
+                      [showToolbar]="showToolbar"
+                      [toolbarTitle]="'Data Grid Toolbar'"
+                      [columnHideable]="columnHideable"
+                      [columnSortable]="columnSortable"
+                      [columnPinnable]="columnPinnable"
+                      [pageOnFront]="showPaginator"
+                      [showPaginator]="showPaginator"
+                      [pageIndex]="0"
+                      [pageSize]="10"
+                      [pageSizeOptions]="[5,20,50]">
+            </mtx-grid>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="submit()">Submit</button>
+        <button mat-raised-button class="" (click)="closeDialog()">Close</button>
       </form>
     </mat-card-content>
   </mat-card>
 </mat-dialog-content>
-
-
-

@@ -23,6 +23,8 @@ import { ErrorCodeComponent } from './components/error-code/error-code.component
 import { DisableControlDirective } from './directives/disable-control.directive';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToObservablePipe } from './pipes/to-observable.pipe';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { DndModule } from 'ngx-drag-drop';
 
 const MODULES: any[] = [
   CommonModule,
@@ -40,6 +42,8 @@ const MODULES: any[] = [
   NgxPermissionsModule,
   ToastrModule,
   TranslateModule,
+  NgxSpinnerModule,
+  DndModule
 ];
 const COMPONENTS: any[] = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent];
 const COMPONENTS_DYNAMIC: any[] = [];

@@ -1,24 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Race } from './race.service';
+import { Race, Runner } from './race.service';
+
+export interface RaceFromLeague {
+  id?: string;
+  name: string;
+  url: string;
+  order: number;
+  ranking?: Runner[];
+  sorted?: boolean;
+  runnerDisqualified?: RunnerParticipant[]
+}
 
 export interface RunnerParticipant {
   id?: string;
   name: string;
   last_name: string;
-  dorsal: number;
-  club: string;
-  nationality: string;
-  gender: string;
-  category: string;
   photo: string;
-  person_id: string;
+  dorsal?: number;
+  club?: string;
+  nationality?: string;
+  gender?: string;
+  category?: string;
+  person_id?: string;
 }
 
 export interface League {
   id?: string
   name: string;
-  races?: Race[];
+  races?: RaceFromLeague[];
   final_ranking?: any;
   runnerParticipants?: RunnerParticipant[]
 }
