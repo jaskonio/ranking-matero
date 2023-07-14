@@ -123,14 +123,22 @@ export class ValenciaCircuitEditComponent implements OnInit {
           console.log(event);
           const selected_runners_ids: string[] = event.value;
 
-          const index = 0;
+          const selectedRunnersCopy:RunnerParticipant[] = Object.assign([], this.selectedRunners);
           this.selectedRunners = this.model.runners_available
           .filter(runner => {
             const id:string = runner.id?? '';
 
             return selected_runners_ids.includes(id);
           })
-          .map((runner) => runner);
+          .map((runner) => {
+            const item = selectedRunnersCopy.filter( x => x.id == runner.id)[0];
+
+            if(item) {
+              runner.dorsal = item.dorsal;
+            }
+
+            return runner;
+          });
         }
       },
     }
@@ -144,6 +152,13 @@ export class ValenciaCircuitEditComponent implements OnInit {
     {
       header: 'Nombre',
       field: 'name',
+      sortable: true,
+      minWidth: 100,
+      width: '100px',
+    },
+    {
+      header: 'Apellido',
+      field: 'last_name',
       sortable: true,
       minWidth: 100,
       width: '100px',
