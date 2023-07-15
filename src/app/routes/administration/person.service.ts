@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { from, map } from 'rxjs';
+import { map } from 'rxjs';
+import { BaseHTTP_Service } from './base.service';
 
 export interface Participant {
   id?: string;
@@ -17,11 +18,12 @@ export interface ParticipantResponse {
 }
 
 @Injectable()
-export class PersonService {
-  baseUrl = 'https://ranking-api-jpzy.onrender.com';
-  personUrl = 'https://ranking-api-jpzy.onrender.com/persons/';
+export class PersonService extends BaseHTTP_Service {
+  personUrl = this.baseUrl + '/persons/';
 
-  constructor(private http: HttpClient) {}
+  constructor(_http: HttpClient) {
+    super(_http);
+  }
 
   getAll() {
     return this.http.get<ParticipantResponse>(this.personUrl).pipe(
@@ -58,5 +60,4 @@ export class PersonService {
 
     return this.http.put(this.personUrl + id, body);
   }
-
 }

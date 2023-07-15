@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BaseHTTP_Service } from './base.service';
 
 export interface Runner {
   finished: boolean;
@@ -43,13 +44,13 @@ export interface RaceResponse {
   message: string;
 }
 
-
 @Injectable()
-export class RaceService {
-  baseUrl = 'https://ranking-api-jpzy.onrender.com';
-  raceUrl = 'https://ranking-api-jpzy.onrender.com/races/';
+export class RaceService extends BaseHTTP_Service {
+  raceUrl = this.baseUrl + '/races/';
 
-  constructor(private http: HttpClient) {}
+  constructor(_http: HttpClient) {
+    super(_http);
+  }
 
   getAll() {
     return this.http.get<Race[]>(this.raceUrl);

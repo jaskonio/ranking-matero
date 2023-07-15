@@ -13,6 +13,7 @@ import { League } from '../../league.service';
 export class ValenciaCircuitAddComponent implements OnInit {
   form = this.fb.group({
     name: ['', [Validators.required]],
+    final_ranking: [[]]
   });
 
   constructor(

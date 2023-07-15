@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Race, Runner } from './race.service';
+import { Runner } from './race.service';
+import { BaseHTTP_Service } from './base.service';
 
 export interface RaceFromLeague {
   id?: string;
@@ -10,6 +11,20 @@ export interface RaceFromLeague {
   ranking?: Runner[];
   sorted?: boolean;
   runnerDisqualified?: RunnerParticipant[]
+}
+
+export interface RankingView {
+  position: number;
+  photo: string;
+  points: number;
+  name: string;
+  pos_last_race: number;
+  top_five: number;
+  participations: number;
+  best_position: string;
+  last_position_race: number;
+  best_avegare_peace: string;
+  best_position_real?: number;
 }
 
 export interface RunnerParticipant {
@@ -29,16 +44,17 @@ export interface League {
   id?: string
   name: string;
   races?: RaceFromLeague[];
-  final_ranking?: any;
+  final_ranking: RankingView[];
   runnerParticipants?: RunnerParticipant[]
 }
 
 @Injectable()
-export class LeagueService {
-  baseUrl = 'https://ranking-api-jpzy.onrender.com';
-  leagueUrl = 'https://ranking-api-jpzy.onrender.com/leagues/';
+export class LeagueService extends BaseHTTP_Service{
+  leagueUrl = this.baseUrl + '/leagues/';
 
-  constructor(private http: HttpClient) {}
+  constructor(_http: HttpClient) {
+    super(_http);
+  }
 
   getAll() {
     return this.http.get<League[]>(this.leagueUrl);
