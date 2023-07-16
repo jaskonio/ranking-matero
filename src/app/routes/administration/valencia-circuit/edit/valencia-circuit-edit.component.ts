@@ -95,7 +95,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
     {
       key: 'key_list_runners',
       type: 'select',
-      defaultValue: this.model.league.runnerParticipants?.map((item) => item.id??''),
+      defaultValue: this.model.league.runnerParticipants?.map((item) => item.person_id??''),
       props: {
         label: 'Lista de corredores',
         multiple: true,
@@ -112,7 +112,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
         map((runner) => {
           const item:SelectData = {
             label: runner.name + ' ' + runner.last_name,
-            value: runner.id ?? '',
+            value: runner.person_id ?? '',
             data: runner
           };
 
@@ -126,12 +126,12 @@ export class ValenciaCircuitEditComponent implements OnInit {
           const selectedRunnersCopy:RunnerParticipant[] = Object.assign([], this.selectedRunners);
           this.selectedRunners = this.model.runners_available
           .filter(runner => {
-            const id:string = runner.id?? '';
+            const id:string = runner.person_id?? '';
 
             return selected_runners_ids.includes(id);
           })
           .map((runner) => {
-            const item = selectedRunnersCopy.filter( x => x.id == runner.id)[0];
+            const item = selectedRunnersCopy.filter( x => x.person_id == runner.person_id)[0];
 
             if(item) {
               runner.dorsal = item.dorsal;
@@ -282,7 +282,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
       this.cdr.detectChanges();
 
       this.selectedRunners = selectedRunners_copy.map((selected_runner) => {
-        if (selected_runner.id == runner.id) {
+        if (selected_runner.person_id == runner.person_id) {
           selected_runner.dorsal = runner.dorsal;
         }
 

@@ -1,6 +1,5 @@
 # TODO
 
-- Crear nueva interface para la vista de ranking
 - Posibilidad de filtrar en los componente de SELECT
 - Añadir estilos a la tabla de ordenación de carrera
 - Modificar popups para movil
@@ -14,3 +13,5 @@
 - Añadir posibilidad de filtrar en las tablas
 - Incluir foto detras de las tablas de ranking final. adaptar para movil y pc
 - capturar error cuando nose puede guardar una liga
+- Los participantes de una liga están linkados por el nombre, deberia usar la propiedad 'person_id'
+- Crear un endpoint para añadir desde un csv la lista de participantes a una liga

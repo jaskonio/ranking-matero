@@ -28,7 +28,6 @@ export interface RankingView {
 }
 
 export interface RunnerParticipant {
-  id?: string;
   name: string;
   last_name: string;
   photo: string;

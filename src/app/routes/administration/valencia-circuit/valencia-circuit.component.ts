@@ -154,7 +154,7 @@ export class ValenciaCircuitComponent implements OnInit, OnDestroy {
       }),
       runners_available: this.all_runners.map((runner) => {
         const item:RunnerParticipant = {
-          id: runner.id,
+          person_id:runner.id,
           name: runner.first_name,
           last_name: runner.last_name,
           photo: runner.photo_url,
