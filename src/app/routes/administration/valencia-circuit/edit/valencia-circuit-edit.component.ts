@@ -95,24 +95,24 @@ export class ValenciaCircuitEditComponent implements OnInit {
     {
       key: 'key_list_runners',
       type: 'select',
-      defaultValue: this.model.league.runnerParticipants?.map((item) => item.person_id??''),
+      defaultValue: this.model.league.runners?.map((item) => item.last_name??''),
       props: {
         label: 'Lista de corredores',
         multiple: true,
         options: this.model.runners_available.
         sort((a, b) => {
-            if (a.name < b.name) {
+            if (a.first_name < b.first_name) {
                 return -1;
             }
-            if (a.name > b.name) {
+            if (a.first_name > b.first_name) {
                 return 1;
             }
             return 0;
         }).
         map((runner) => {
           const item:SelectData = {
-            label: runner.name + ' ' + runner.last_name,
-            value: runner.person_id ?? '',
+            label: runner.first_name + ' ' + runner.last_name,
+            value: runner.last_name ?? '',
             data: runner
           };
 
@@ -125,15 +125,15 @@ export class ValenciaCircuitEditComponent implements OnInit {
 
           const selectedRunnersCopy:RunnerParticipant[] = Object.assign([], this.selectedRunners);
           this.selectedRunners = this.model.runners_available
-          .filter(runner => {
-            const id:string = runner.person_id?? '';
+          // .filter(runner => {
+          //   const id:string = runner.person_id?? '';
 
-            return selected_runners_ids.includes(id);
-          })
+          //   return selected_runners_ids.includes(id);
+          // })
           .map((runner) => {
-            const item = selectedRunnersCopy.filter( x => x.person_id == runner.person_id)[0];
+            const item = selectedRunnersCopy.filter( x => x.last_name == runner.last_name)[0];
 
-            if(item) {
+            if (item) {
               runner.dorsal = item.dorsal;
             }
 
@@ -224,7 +224,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
     console.log('ValenciaCircuitEditComponent.ngOnInit');
 
     this.selectedRace = this.model.league.races?.map((item) => item) ?? [];
-    this.selectedRunners = this.model.league.runnerParticipants?.map((item) => item) ?? [];
+    this.selectedRunners = this.model.league.runners?.map((item) => item) ?? [];
 
     this.form.updateValueAndValidity();
     this.options.updateInitialValue?.caller();
@@ -282,7 +282,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
       this.cdr.detectChanges();
 
       this.selectedRunners = selectedRunners_copy.map((selected_runner) => {
-        if (selected_runner.person_id == runner.person_id) {
+        if (selected_runner.last_name == runner.last_name) {
           selected_runner.dorsal = runner.dorsal;
         }
 

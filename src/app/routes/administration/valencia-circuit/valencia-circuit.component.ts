@@ -154,11 +154,13 @@ export class ValenciaCircuitComponent implements OnInit, OnDestroy {
       }),
       runners_available: this.all_runners.map((runner) => {
         const item:RunnerParticipant = {
-          person_id:runner.id,
-          name: runner.first_name,
+          first_name: runner.first_name,
           last_name: runner.last_name,
-          photo: runner.photo_url,
-          dorsal: 0
+          nationality: '',
+          gender: '',
+          photo: '',
+          photo_url: runner.photo_url,  
+          dorsal: 0,
         };
 
         return item;
@@ -183,7 +185,7 @@ export class ValenciaCircuitComponent implements OnInit, OnDestroy {
       const current_selected_runners = data.selected_runners;
 
       current_league.races = current_selected_races;
-      current_league.runnerParticipants = current_selected_runners;
+      current_league.runners = current_selected_runners;
 
       this._leagueService.update(current_league).subscribe(data=>{
         this._toast.info('Se ha actualizado la liga');

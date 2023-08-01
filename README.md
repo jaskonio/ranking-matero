@@ -37,3 +37,16 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ```bash
   docker run --rm -p 8080:80 matero-ui:latest
 ```
+
+## Local Development
+
+```bash	
+curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo apt install nodejs
+```
+
+### Setup Angular
+```bash
+npm install
+```

@@ -7,9 +7,9 @@
         <mat-card-subtitle>{{ league.name }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <mtx-grid [data]="league.final_ranking"
+        <mtx-grid [data]="league.ranking"
         [columns]="columns"
-        [length]="league.final_ranking.length"
+        [length]="league.ranking.length"
         [loading]="isLoading"
         [pageOnFront]="true"
         [columnResizable]="columnResizable"

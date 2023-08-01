@@ -3,49 +3,55 @@ import { HttpClient } from '@angular/common/http';
 import { Runner } from './race.service';
 import { BaseHTTP_Service } from './base.service';
 
-export interface RaceFromLeague {
-  id?: string;
-  name: string;
-  url: string;
-  order: number;
-  ranking?: Runner[];
-  sorted?: boolean;
-  runnerDisqualified?: RunnerParticipant[]
-}
-
-export interface RankingView {
-  position: number;
-  photo: string;
-  points: number;
-  name: string;
-  pos_last_race: number;
-  top_five: number;
-  participations: number;
-  best_position: string;
-  last_position_race: number;
-  best_avegare_peace: string;
-  best_position_real?: number;
-}
-
-export interface RunnerParticipant {
-  name: string;
-  last_name: string;
-  photo: string;
-  dorsal?: number;
-  club?: string;
-  nationality?: string;
-  gender?: string;
-  category?: string;
-  person_id?: string;
-}
-
 export interface League {
   id?: string
   name: string;
   races?: RaceFromLeague[];
-  final_ranking: RankingView[];
-  runnerParticipants?: RunnerParticipant[]
+  ranking: RankingView[];
+  runners?: RunnerParticipant[]
 }
+
+export interface RaceFromLeague {
+  id?: string;
+  name: string;
+  url: string;
+  ranking?: Runner[];
+  order: number;
+  is_sorted?: boolean;
+}
+
+export interface RankingView {
+  id: string;
+  first_name: string;
+  last_name: string;
+  nationality: string;
+  gender: string;
+  photo: string;
+  photo_url: string;
+  position: number;
+  points: number;
+  pos_last_race: number;
+  top_five: number;
+  participations: number;
+  best_position: string;
+  last_position_race: string;
+  best_avegare_peace: string;
+  best_position_real: number;
+}
+
+export interface RunnerParticipant {
+  id?: string;
+  first_name: string;
+  last_name: string;
+  nationality: string;
+  gender: string;
+  photo: string;
+  photo_url: string;
+  dorsal?: number;
+  club?: string;
+  category?: string;
+}
+
 
 @Injectable()
 export class LeagueService extends BaseHTTP_Service{
