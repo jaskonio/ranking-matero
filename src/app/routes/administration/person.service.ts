@@ -7,15 +7,12 @@ export interface Participant {
   id?: string;
   first_name: string;
   last_name: string;
+  nationality: string;
+  gender: string;
   photo: string;
   photo_url: string;
 }
 
-export interface ParticipantResponse {
-  items: Participant[];
-  meta: object;
-  message: string;
-}
 
 @Injectable()
 export class PersonService extends BaseHTTP_Service {
@@ -26,8 +23,8 @@ export class PersonService extends BaseHTTP_Service {
   }
 
   getAll() {
-    return this.http.get<ParticipantResponse>(this.personUrl).pipe(
-      map(result => result.items),
+    return this.http.get<Participant[]>(this.personUrl)
+    .pipe(
       map(participants => {
         participants.forEach(item => {
           item.photo_url = this.baseUrl + item.photo_url;
