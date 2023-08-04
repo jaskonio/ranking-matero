@@ -15,7 +15,7 @@ export class RaceEditComponent implements OnInit {
   raceForm = this.fb.group({
     name: [this.data.name, [Validators.required]],
     url: [this.data.url, [Validators.required]],
-    processed: [this.data.processed],
+    is_sorted: [!this.data.is_sorted],
   });
 
   // table
@@ -151,6 +151,9 @@ export class RaceEditComponent implements OnInit {
   submit(){
     console.log('RaceEditComponent.submit');
     console.log(this.raceForm.value);
+
+    this.data.name = this.raceForm.value.name == undefined? '': this.raceForm.value.name
+    this.data.is_sorted = !this.raceForm.value.is_sorted == null? undefined: !this.raceForm.value.is_sorted
 
     this.dialogRef.close(this.data);
   }

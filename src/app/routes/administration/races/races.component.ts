@@ -134,6 +134,15 @@ export class RacesComponent implements OnInit, OnDestroy {
       if(race == undefined) {
         return;
       }
+
+      this._raceService.add(race).subscribe(data => {
+        console.log(data);
+        this._toast.info('La carrera se ha añadido correctamente');
+        this.getAllRace();
+      },(error) => {
+        console.log(error);
+        this._toast.error('La carrera no se ha añadido correctamente');
+      });
     });
   }
 
@@ -158,8 +167,12 @@ export class RacesComponent implements OnInit, OnDestroy {
 
       this._raceService.update(race).subscribe(data =>{
         console.log(data);
-        this._toast.info('La carrera se ha actualizado correctamente');
-      },);
+        this._toast.info('La carrera se actualizado correctamente');
+        this.getAllRace();
+      },(error) => {
+        console.log(error);
+        this._toast.error('La carrera no se ha actualizado');
+      });
     });
   }
 }

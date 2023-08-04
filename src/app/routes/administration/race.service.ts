@@ -3,39 +3,42 @@ import { HttpClient } from '@angular/common/http';
 import { BaseHTTP_Service } from './base.service';
 
 export interface Runner {
-  finished: boolean;
-  officialTime: string;
-  officialPos: number;
-  officialAverageTime: string;
-  officialCatPos: number;
-  officialGenPos: number;
-  realTime: string;
-  realPos: number;
-  realAverageTime: string;
-  realCatPos: number;
-  realGenPos: number;
-  name: string;
-  last_name: string;
-  dorsal: number;
-  club: string;
-  nationality: string;
-  gender: string;
-  category: string;
-  photo: string;
-  race_id: string;
-  puntos: number;
+  id: string,
+  first_name: string,
+  last_name: string,
+  nationality: string,
+  gender: string,
+  photo: string,
+  photo_url: string,
+  dorsal: string,
+  club: string,
+  category: string,
+  position: number
+  finished: boolean,
+  is_disqualified: boolean,
+  official_time: string,
+  official_pos: string,
+  official_avg_time: string,
+  official_cat_pos: string,
+  official_gen_pos: string,
+  real_time: string,
+  real_pos: string,
+  real_avg_time: string,
+  real_cat_pos: string,
+  real_gen_pos: string,
+  points: number,
   posiciones_ant: number[],
-  photo_data: string;
+  averages_ant: string[],
+  position_general_ant: number[]
 }
 
 export interface Race {
   id?: string;
   name: string;
   url: string;
-  processed: boolean;
-  sorted?: boolean;
   ranking?: Runner[];
-  proceesEnabled?: boolean;
+  order?: number;
+  is_sorted?: boolean;
 }
 
 export interface RaceResponse {

@@ -38,7 +38,7 @@ export class RaceAddComponent implements OnInit {
     const data:Race = {
         name: this.raceForm.value.name as string,
         url: this.raceForm.value.url as string,
-        processed: this.raceForm.value.processed as boolean
+        is_sorted: !this.raceForm.value.processed as boolean
     };
 
     this.dialogRef.close(data);
