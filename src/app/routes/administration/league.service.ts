@@ -1,45 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Runner } from './race.service';
+import { Race } from './race.service';
 import { BaseHTTP_Service } from './base.service';
 
 export interface League {
   id?: string
   name: string;
-  races?: RaceFromLeague[];
-  ranking: RankingView[];
-  runners?: RunnerParticipant[]
+  races?: Race[];
+  ranking: RankingFromLeague[];
+  runners?: RunnerFromLeague[]
 }
 
-export interface RaceFromLeague {
+export interface RankingFromLeague {
   id?: string;
-  name: string;
-  url: string;
-  ranking?: Runner[];
-  order: number;
-  is_sorted?: boolean;
-}
-
-export interface RankingView {
-  id: string;
   first_name: string;
   last_name: string;
   nationality: string;
   gender: string;
   photo: string;
   photo_url: string;
+
   position: number;
   points: number;
   pos_last_race: number;
   top_five: number;
   participations: number;
   best_position: string;
-  last_position_race: string;
+  last_position_race: number;
   best_avegare_peace: string;
   best_position_real: number;
 }
 
-export interface RunnerParticipant {
+export interface RunnerFromLeague {
   id?: string;
   first_name: string;
   last_name: string;

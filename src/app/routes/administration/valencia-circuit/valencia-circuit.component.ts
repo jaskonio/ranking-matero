@@ -1,17 +1,16 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { League, LeagueService, RaceFromLeague, RunnerParticipant } from '../league.service';
 import { ValenciaCircuitAddComponent } from './add/valencia-circuit-add.component';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
 import { ValenciaCircuitDialogData, ValenciaCircuitEditComponent, ValenciaCircuitEditDialogData } from './edit/valencia-circuit-edit.component';
 import { NGXLogger } from 'ngx-logger';
 import { Race, RaceService } from '../race.service';
-import { forkJoin, race } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Participant, PersonService } from '../person.service';
-import { json } from 'stream/consumers';
+import { League, LeagueService } from '../league.service';
 
 @Component({
   selector: 'app-valencia-circuit',
@@ -142,29 +141,8 @@ export class ValenciaCircuitComponent implements OnInit, OnDestroy {
   openEditLeagueModal(league:League) {
     const modal_data: ValenciaCircuitEditDialogData = {
       league,
-      races_available: this.all_races.map(item => {
-        const race:RaceFromLeague = {
-          id: item.id,
-          name:item.name,
-          order:0,
-          url:item.url,
-          ranking: item.ranking
-        };
-        return race;
-      }),
-      runners_available: this.all_runners.map((runner) => {
-        const item:RunnerParticipant = {
-          first_name: runner.first_name,
-          last_name: runner.last_name,
-          nationality: '',
-          gender: '',
-          photo: '',
-          photo_url: runner.photo_url,  
-          dorsal: 0,
-        };
-
-        return item;
-      })
+      races_available: this.all_races,
+      runners_available: this.all_runners
     };
 
     const dialogRef = this.dialog.open(ValenciaCircuitEditComponent, {
@@ -223,6 +201,7 @@ export class ValenciaCircuitComponent implements OnInit, OnDestroy {
       this._leagueService.add(league).subscribe((new_league) => {
         console.log(new_league);
         this._toast.info('Se ha creado una nueva Liga');
+        this.getAllLeague()
       },
       () => {
         this._toast.error('Se producido un error al crear una nueva Liga');

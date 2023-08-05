@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Runner } from '../../race.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { RunnerFromRace } from '../../race.service';
 
 @Component({
   selector: 'app-runner-edit',
@@ -144,7 +144,7 @@ export class RunnerEditComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<RunnerEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Runner
+    @Inject(MAT_DIALOG_DATA) public data: RunnerFromRace
   ) {
     console.log('RunnerEditComponent.constructor');
     console.log(this.data);

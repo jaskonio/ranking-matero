@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { League, RaceFromLeague, RunnerParticipant } from '../../league.service';
+import { League, RunnerFromLeague } from '../../league.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { NGXLogger } from 'ngx-logger';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
 import { ValenciaCircuitEditRunnerComponent } from '../editRunner/ValenciaCircuitEditRunnerComponent';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Participant } from '../../person.service';
+import { Race } from '../../race.service';
 
 export interface SelectData {
   label: string
@@ -16,14 +18,14 @@ export interface SelectData {
 
 export interface ValenciaCircuitEditDialogData{
   league: League,
-  races_available: RaceFromLeague[]
-  runners_available: RunnerParticipant[]
+  races_available: Race[]
+  runners_available: Participant[]
 }
 
 export interface ValenciaCircuitDialogData{
   league: League,
-  selected_races: RaceFromLeague[]
-  selected_runners: RunnerParticipant[]
+  selected_races: Race[]
+  selected_runners: RunnerFromLeague[]
 }
 
 @Component({
@@ -79,23 +81,17 @@ export class ValenciaCircuitEditComponent implements OnInit {
           const selected_race_ids: string[] = event.value;
 
           const index = 0;
-          this.selectedRace = this.model.races_available
-          .filter(race => {
-            const id:string = race.id?? '';
-
-            return selected_race_ids.includes(id);
+          this.selectedRace = this.model.races_available.filter( (race) => {
+            let id = race.id? race.id : ''
+            return selected_race_ids.includes(id)
           })
-          .map((race) => {
-            race.order = index;
-            return race;
-          });
         }
       },
     },
     {
       key: 'key_list_runners',
       type: 'select',
-      defaultValue: this.model.league.runners?.map((item) => item.last_name??''),
+      defaultValue: this.model.league.runners?.map((item) => item.id??''),
       props: {
         label: 'Lista de corredores',
         multiple: true,
@@ -112,7 +108,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
         map((runner) => {
           const item:SelectData = {
             label: runner.first_name + ' ' + runner.last_name,
-            value: runner.last_name ?? '',
+            value: runner.id ?? '',
             data: runner
           };
 
@@ -123,29 +119,17 @@ export class ValenciaCircuitEditComponent implements OnInit {
           console.log(event);
           const selected_runners_ids: string[] = event.value;
 
-          const selectedRunnersCopy:RunnerParticipant[] = Object.assign([], this.selectedRunners);
-          this.selectedRunners = this.model.runners_available
-          // .filter(runner => {
-          //   const id:string = runner.person_id?? '';
-
-          //   return selected_runners_ids.includes(id);
-          // })
-          .map((runner) => {
-            const item = selectedRunnersCopy.filter( x => x.last_name == runner.last_name)[0];
-
-            if (item) {
-              runner.dorsal = item.dorsal;
-            }
-
-            return runner;
-          });
+          this.selectedRunners = this.model.runners_available.filter( (runner) => {
+            let id = runner.id? runner.id : ''
+            return selected_runners_ids.includes(id)
+          })
         }
       },
     }
   ];
 
-  selectedRace:RaceFromLeague[] = [];
-  selectedRunners:RunnerParticipant[] = [];
+  selectedRace:Race[] = [];
+  selectedRunners:RunnerFromLeague[] = [];
 
   /* Tabla de lista de corredores */
   columns: MtxGridColumn[] = [
@@ -256,7 +240,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
 
   /* Tabla de lista de corredores */
 
-  openEditRunnerSelectedModal(runner: RunnerParticipant){
+  openEditRunnerSelectedModal(runner: RunnerFromLeague){
     console.log('openEditRunnerSelectedModal');
 
     this.isLoading = true;
@@ -267,7 +251,7 @@ export class ValenciaCircuitEditComponent implements OnInit {
       data: Object.assign({}, runner)
     });
 
-    dialogRef.afterClosed().subscribe((runner:RunnerParticipant) => {
+    dialogRef.afterClosed().subscribe((runner:RunnerFromLeague) => {
       this._logger.debug('openEditRunnerSelectedModal.afterAllClosed. runner: ', runner);
 
       if(runner == undefined) {

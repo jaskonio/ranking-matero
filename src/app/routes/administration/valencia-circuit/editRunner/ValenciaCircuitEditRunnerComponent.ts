@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Inject, ChangeDetectorRef, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MtxGridColumn } from '@ng-matero/extensions/grid';
-import { League, RunnerParticipant } from '../../league.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { RunnerFromLeague } from '../../league.service';
 
 
 @Component({
@@ -36,7 +34,7 @@ export class ValenciaCircuitEditRunnerComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ValenciaCircuitEditRunnerComponent>,
-    @Inject(MAT_DIALOG_DATA) public model: RunnerParticipant,
+    @Inject(MAT_DIALOG_DATA) public model: RunnerFromLeague,
     public dialog: MatDialog
   ) {
     console.log('ValenciaCircuitEditRunnerComponent.constructor');

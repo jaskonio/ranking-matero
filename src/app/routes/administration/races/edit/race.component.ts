@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Inject, ChangeDetectorRef, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Race, Runner } from '../../race.service';
+import { Race, RunnerFromRace } from '../../race.service';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
 import { RunnerEditComponent } from '../../runner/edit/runner-edit.component';
 
@@ -19,7 +19,7 @@ export class RaceEditComponent implements OnInit {
   });
 
   // table
-  ranking:Runner[] = [];
+  ranking:RunnerFromRace[] = [];
 
   columns: MtxGridColumn[] = [
     {
@@ -158,7 +158,7 @@ export class RaceEditComponent implements OnInit {
     this.dialogRef.close(this.data);
   }
 
-  editDialogRunner(runner: Runner): void {
+  editDialogRunner(runner: RunnerFromRace): void {
     console.log('RaceEditComponent.editDialogRunner');
     console.log(runner);
 
@@ -168,14 +168,14 @@ export class RaceEditComponent implements OnInit {
       data: runner
     });
 
-    dialogRef.afterClosed().subscribe((runner:Runner) => {
+    dialogRef.afterClosed().subscribe((runner:RunnerFromRace) => {
       console.log('RaceEditComponent.editDialogRunnerafterClosed');
       console.log(runner);
       this.tableDetectChanges();
     });
   }
 
-  removeRunner(runner: Runner): void {
+  removeRunner(runner: RunnerFromRace): void {
     console.log('RaceEditComponent.removeRunner');
     console.log(runner);
   }
