@@ -16,7 +16,6 @@ import { environment } from '@env/environment';
 import { BASE_URL, appInitializerProviders, httpInterceptorProviders } from '@core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
-import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
