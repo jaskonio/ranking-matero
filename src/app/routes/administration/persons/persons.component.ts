@@ -6,6 +6,7 @@ import { filter, tap } from 'rxjs';
 import { Participant, PersonService } from '../person.service';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-persons',

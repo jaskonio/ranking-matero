@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
+import { environment } from '@env/environment';
 
-export class BaseHTTP_Service {
-  // baseUrl = 'https://ranking-api-jpzy.onrender.com';
-  baseUrl = 'http://127.0.0.1:8000';
+export class BaseHTTP_Service {  
+  baseUrl = environment.apiData;
 
   constructor(public http: HttpClient) {}
 }
