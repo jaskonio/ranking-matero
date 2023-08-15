@@ -75,6 +75,19 @@
       ]
     },
     {
+      "route": "components",
+      "name": "Components",
+      "type": "sub",
+      "icon": "build",
+      "children": [
+        {
+          "route": "all",
+          "name": "All",
+          "type": "link"
+        }
+      ]
+    },
+    {
       "route": "design",
       "name": "design",
       "type": "sub",

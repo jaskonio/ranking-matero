@@ -25,6 +25,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToObservablePipe } from './pipes/to-observable.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DndModule } from 'ngx-drag-drop';
+import { TablesRankingComponent } from './components/table-ranking/table-ranking.component';
 
 const MODULES: any[] = [
   CommonModule,
@@ -45,7 +46,7 @@ const MODULES: any[] = [
   NgxSpinnerModule,
   DndModule
 ];
-const COMPONENTS: any[] = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent];
+const COMPONENTS: any[] = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent, TablesRankingComponent];
 const COMPONENTS_DYNAMIC: any[] = [];
 const DIRECTIVES: any[] = [DisableControlDirective];
 const PIPES: any[] = [SafeUrlPipe, ToObservablePipe];
